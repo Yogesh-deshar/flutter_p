@@ -1,4 +1,4 @@
-import 'package:dart/views/Navbar_widgets.dart';
+import 'package:dart/data/valuenotigier.dart';
 import 'package:flutter/material.dart';
 import 'package:dart/views/widget_tree.dart';
 
@@ -13,16 +13,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugDisableShadows = false;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: .fromSeed(
-          seedColor: Colors.deepPurple,
-          brightness: Brightness.dark,
-        ),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return ValueListenableBuilder<bool>(
+      valueListenable: isDarkMode,
+      builder: (context, isDark, child) {
+        final brightness = isDark ? Brightness.dark : Brightness.light;
+
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.deepPurple,
+              brightness: brightness,
+            ),
+          ),
+          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        );
+      },
     );
   }
 }

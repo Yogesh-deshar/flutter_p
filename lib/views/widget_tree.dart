@@ -22,6 +22,20 @@ class WidgetTree extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Flutter App"),
+        actions: [
+          IconButton(
+            icon: ValueListenableBuilder(
+              valueListenable: isDarkMode,
+              builder: (context, value, child) {
+                return Icon(value ? Icons.dark_mode : Icons.light_mode);
+              },
+            ),
+            onPressed: () {
+              isDarkMode.value = !isDarkMode.value;
+            },
+          ),
+        ],
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       // body: currentIndex == 0
